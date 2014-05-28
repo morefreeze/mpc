@@ -1,18 +1,11 @@
 CC = gcc
-CFLAGS = -ansi -pedantic -Wall -Wno-overlength-strings -Werror -O3 -g
+CFLAGS = -ansi -pedantic -Wall -Werror -O3 -g -std=c99
 
-TESTS = $(wildcard tests/*.c)
-EXAMPLES = $(wildcard examples/*.c)
-EXAMPLESEXE = $(EXAMPLES:.c=)
+TESTS = $(wildcard *.c)
 
-all: $(EXAMPLESEXE) check 
-  
-check: $(TESTS) mpc.c
-	$(CC) $(CFLAGS) $^ -lm -o test
-	./test
-  
-examples/%: examples/%.c mpc.c
-	$(CC) $(CFLAGS) $^ -lm -o $@
+all: 
+	$(CC) $(CFLAGS) $(TESTS) -lm -o parsing
+	./parsing
   
 clean:
-	rm test
+	rm parsing
